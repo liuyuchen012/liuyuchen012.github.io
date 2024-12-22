@@ -4,31 +4,31 @@
         <loc>https://615mc.cn/</loc>
         <lastmod>2024-12-22</lastmod>
         <changefreq>monthly</changefreq>
-        <priority>5</priority>
+        <priority>1.0</priority> <!-- 最高优先级 -->
     </url>
     <url>
         <loc>https://615mc.cn/about_615mc.html</loc>
         <lastmod>2024-11-01</lastmod>
         <changefreq>quarterly</changefreq>
-        <priority>4</priority>
+        <priority>0.8</priority> <!-- 较高的优先级 -->
     </url>
     <url>
         <loc>http://615mc.cn/pay/</loc>
         <lastmod>2024-11-01</lastmod>
         <changefreq>quarterly</changefreq>
-        <priority>3</priority>
+        <priority>0.6</priority> <!-- 中等优先级 -->
     </url>
-      <url>
+    <url>
         <loc>https://615mc.cn/小游戏.小恐龙.html</loc>
         <lastmod>2024-11-01</lastmod>
         <changefreq>quarterly</changefreq>
-        <priority>2</priority>
+        <priority>0.4</priority> <!-- 较低的优先级 -->
     </url>
-        <url>
+    <url>
         <loc>https://view.officeapps.live.com/op/view.aspx?src=https%3A%2F%2F615mc.cn%2F%25E6%259C%258D%25E5%258A%25A1%25E5%2599%25A8ip%25E5%25B0%2581%25E7%25A6%2581%25E8%25A1%25A8%25E5%258D%2595Server%2520IP%2520block%2520form.xlsx&wdOrigin=BROWSELINK</loc>
         <lastmod>2024-11-01</lastmod>
         <changefreq>quarterly</changefreq>
-        <priority>1</priority>
+        <priority>0.2</priority> <!-- 最低的优先级 -->
     </url>
-    <!-- 其他URL元素 -->
+    <!-- 其他URL元素可以继续添加在这里 -->
 </urlset>
