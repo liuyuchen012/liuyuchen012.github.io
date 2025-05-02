@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手机ROM仓库 - 增强版</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+
+        .search-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        #searchInput, #brandFilter {
+            flex: 1;
+            padding: 10px;
+            min-width: 200px;
+        }
+
+        .rom-list {
+            display: grid;
+            gap: 15px;
+        }
+
+        .rom-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .rom-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .rom-title {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .download-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+
+        .download-btn:hover {
+            opacity: 0.8;
+        }
+
+        .rom-details {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #007bff;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .error-message {
+            color: #dc3545;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .status-bar {
+            text-align: right;
+            padding: 10px;
+            color: #666;
+            font-size: 0.8em;
+        }
+
+        @media (max-width: 600px) {
+            .rom-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="status-bar" id="statusBar"></div>
+    
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="搜索ROM名称或型号...">
+        <select id="brandFilter">
+            <option value="">所有品牌</option>
+            <option value="Xiaomi">小米</option>
+            <option value="Samsung">三星</option>
+            <option value="OnePlus">一加</option>
+        </select>
+    </div>
+
+    <div id="romContainer" class="rom-list"></div>
+
+    <script>
+        // 配置参数
+        const CONFIG = {
+            DATA_URL: 'rom_data.json',
+            CACHE_KEY: 'rom_repository_v1',
+            AUTO_REFRESH_INTERVAL: 300000, // 5分钟
+            MAX_RETRIES: 3
+        };
+
+        let refreshTimer = null;
+        let retryCount = 0;
+
+        // 初始化
+        async function init() {
+            try {
+                showLoading();
+                await loadData();
+                setupEventListeners();
+                startAutoRefresh();
+                updateStatus('数据已加载');
+            } catch (error) {
+                handleError(error);
+            }
+        }
+
+        // 加载数据
+        async function loadData() {
+            const cachedData = getCachedData();
+            
+            try {
+                const response = await fetch(CONFIG.DATA_URL);
+                if (!response.ok) throw new Error(`HTTP错误 ${response.status}`);
+                
+                const freshData = await response.json();
+                validateData(freshData);
+                
+                if (shouldUpdateCache(cachedData, freshData)) {
+                    updateCache(freshData);
+                    window.romData = freshData.data;
+                    renderROMs(window.romData);
+                } else if (!window.romData) {
+                    window.romData = cachedData.data;
+                    renderROMs(window.romData);
+                }
+                retryCount = 0;
+            } catch (error) {
+                if (cachedData) {
+                    window.romData = cachedData.data;
+                    renderROMs(window.romData);
+                    throw new Error(`${error.message}（使用缓存数据）`);
+                }
+                throw error;
+            }
+        }
+
+        // 验证数据结构
+        function validateData(data) {
+            if (!data || !data.version || !data.timestamp || !Array.isArray(data.data)) {
+                throw new Error('无效的数据格式');
+            }
+        }
+
+        // 缓存管理
+        function getCachedData() {
+            const cached = localStorage.getItem(CONFIG.CACHE_KEY);
+            return cached ? JSON.parse(cached) : null;
+        }
+
+        function shouldUpdateCache(cached, fresh) {
+            return !cached || fresh.version > cached.version;
+        }
+
+        function updateCache(data) {
+            localStorage.setItem(CONFIG.CACHE_KEY, JSON.stringify(data));
+        }
+
+        // 渲染功能
+        function renderROMs(data) {
+            const container = document.getElementById('romContainer');
+            
+            if (!data || data.length === 0) {
+                container.innerHTML = '<div class="error-message">未找到匹配的ROM</div>';
+                return;
+            }
+
+            container.innerHTML = data.map(rom => `
+                <div class="rom-card">
+                    <div class="rom-header">
+                        <div class="rom-title">${rom.name} - ${rom.model}</div>
+                        <button class="download-btn" data-id="${rom.id}">
+                            下载 (${rom.downloads.toLocaleString()})
+                        </button>
+                    </div>
+                    <div class="rom-details">
+                        <div>品牌: ${rom.brand}</div>
+                        <div>安卓版本: ${rom.androidVersion}</div>
+                        <div>大小: ${rom.size}</div>
+                        <div>版本: ${rom.version || '1.0.0'}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 过滤功能
+        function filterROMs() {
+            const searchText = document.getElementById('searchInput').value.toLowerCase();
+            const brand = document.getElementById('brandFilter').value;
+
+            const filtered = window.romData.filter(rom => {
+                const matchSearch = rom.name.toLowerCase().includes(searchText) || 
+                                  rom.model.toLowerCase().includes(searchText);
+                const matchBrand = brand ? rom.brand === brand : true;
+                return matchSearch && matchBrand;
+            });
+
+            renderROMs(filtered);
+        }
+
+        // 自动刷新
+        function startAutoRefresh() {
+            if (refreshTimer) clearInterval(refreshTimer);
+            refreshTimer = setInterval(async () => {
+                try {
+                    await loadData();
+                    updateStatus(`数据已更新 ${new Date().toLocaleTimeString()}`);
+                } catch (error) {
+                    console.warn('自动刷新失败:', error);
+                }
+            }, CONFIG.AUTO_REFRESH_INTERVAL);
+        }
+
+        // 事件处理
+        function setupEventListeners() {
+            document.getElementById('searchInput').addEventListener('input', filterROMs);
+            document.getElementById('brandFilter').addEventListener('change', filterROMs);
+            
+            document.body.addEventListener('click', async (e) => {
+                if (e.target.classList.contains('download-btn')) {
+                    const romId = parseInt(e.target.dataset.id);
+                    const rom = window.romData.find(r => r.id === romId);
+                    if (rom) {
+                        try {
+                            rom.downloads++;
+                            renderROMs(window.romData);
+                            await recordDownload(romId);
+                            window.open(rom.url, '_blank');
+                        } catch (error) {
+                            console.error('下载记录失败:', error);
+                        }
+                    }
+                }
+            });
+        }
+
+        // 状态显示
+        function showLoading() {
+            document.getElementById('romContainer').innerHTML = '<div class="loader"></div>';
+            updateStatus('正在加载数据...');
+        }
+
+        function updateStatus(text) {
+            document.getElementById('statusBar').textContent = text;
+        }
+
+        // 错误处理
+        function handleError(error) {
+            console.error('发生错误:', error);
+            document.getElementById('romContainer').innerHTML = `
+                <div class="error-message">
+                    <h3>⚠️ 加载失败</h3>
+                    <p>${error.message}</p>
+                    ${retryCount < CONFIG.MAX_RETRIES ? 
+                        `<button onclick="retryLoad()">重试 (${CONFIG.MAX_RETRIES - retryCount}次剩余)</button>` :
+                        '<button onclick="location.reload()">重新加载页面</button>'}
+                </div>
+            `;
+            updateStatus(`错误: ${error.message}`);
+        }
+
+        async function retryLoad() {
+            retryCount++;
+            try {
+                showLoading();
+                await loadData();
+            } catch (error) {
+                handleError(error);
+            }
+        }
+
+        // 模拟下载记录
+        async function recordDownload(id) {
+            // 实际使用时需要对接API
+            return new Promise(resolve => setTimeout(resolve, 500));
+        }
+
+        // 启动
+        init();
+    </script>
+</body>
+</html>
