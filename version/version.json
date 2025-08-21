@@ -2,6 +2,6 @@
     "latestVersion": "1.5",
     "downloadUrl": "https://example.com/download/latest",
     "releaseDate": "2023-06-15",
-    "releaseNotes": "修复了已知问题，提升了应用性能",
+    "releaseNotes": "1.修复在应用自重启函数中的BUG<br>|_2.版本版本编号 在线版（obline version）后缀永久删除方便后续版本更新",
     "minRequiredVersion": "1.0"
 }
