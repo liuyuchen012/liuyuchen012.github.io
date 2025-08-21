@@ -1,0 +1,7 @@
+{
+    "latestVersion": "1.5",
+    "downloadUrl": "https://example.com/download/latest",
+    "releaseDate": "2023-06-15",
+    "releaseNotes": "修复了已知问题，提升了应用性能",
+    "minRequiredVersion": "1.0"
+}
