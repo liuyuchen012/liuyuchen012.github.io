@@ -1,8 +1,0 @@
-// re-export @vueuse/shared types. with strict installers like pnpm, user won't
-// be able to reference @vueuse/shared in project root.
-/// <reference types="@vueuse/shared" />
-/// <reference types="vite/client" />
-
-export * from './client/index'
-export * from './dist/node/index.mjs'
-export * from './dist/types/index.mjs'

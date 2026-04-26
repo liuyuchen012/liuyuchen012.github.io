@@ -1,3 +1,0 @@
-# plugins
-
-Custom Vite Plugins.

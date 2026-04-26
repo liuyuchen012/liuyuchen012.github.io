@@ -1,35 +1,5 @@
-# custom
-
-# add lock for ci
-# pnpm-lock.yaml
-package-lock.json
-yarn.lock
-
-.DS_Store
-.vite-ssg-dist
-.vite-ssg-temp
-*.local
-dist
-dist-ssr
 node_modules
-.idea/
-*.log
-
-components.d.ts
-
-/test-results/
-/playwright-report/
-/blob-report/
-/playwright/.cache/
-.playwright-mcp
-
-# test
-valaxy-blog
-
-# env (may contain secrets like VALAXY_ENCRYPT_PASSWORD)
-.env
-.env.*
-
-# codebuddy
-.codebuddy/memory
-.claude/worktrees
+dist
+*.local
+.DS_Store
+.vite
