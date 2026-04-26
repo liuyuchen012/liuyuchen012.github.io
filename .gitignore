@@ -3,3 +3,15 @@ dist
 *.local
 .DS_Store
 .vite
+
+# valaxy fuse
+public/valaxy-fuse-list.json
+
+# valaxy rss
+public/feed.xml
+
+# valaxy rss
+public/atom.xml
+
+# valaxy rss
+public/feed.json
