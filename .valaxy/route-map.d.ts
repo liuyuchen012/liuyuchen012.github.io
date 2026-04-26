@@ -126,13 +126,13 @@ declare module 'vue-router/auto-routes' {
       views:
         | never
     }
-    'node_modules/.pnpm/valaxy-theme-press@0.28.5_@types+node@25.6.0_axios@1.15.2_fuse.js@7.3.0_jiti@2.6.1_lightningc_scmfiv5xgeoebnvdx7fdwyfiiy/node_modules/valaxy-theme-press/pages/[...all].vue': {
+    'node_modules/.pnpm/valaxy-theme-press@0.27.0_@algolia+client-search@5.51.0_search-insights@2.17.3/node_modules/valaxy-theme-press/pages/[...all].vue': {
       routes:
         | '/[...all]'
       views:
         | never
     }
-    'node_modules/.pnpm/valaxy@0.28.5_@babel+parser@7.29.2_@types+markdown-it@14.1.2_@types+node@25.6.0_@vue+compiler_zodsg7wowb4gumwq7f5fzqrroe/node_modules/valaxy/client/pages/[...path].vue': {
+    'node_modules/.pnpm/valaxy@0.27.0_@babel+parser@7.29.2_@types+markdown-it@14.1.2_@types+node@25.6.0_@vue+compiler_7zx6nqkvatejucsgghidrmqxky/node_modules/valaxy/client/pages/[...path].vue': {
       routes:
         | '/[...path]'
       views:

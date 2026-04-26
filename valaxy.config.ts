@@ -2,19 +2,6 @@ import { defineValaxyConfig } from 'valaxy'
 
 export default defineValaxyConfig({
   theme: 'press',
-  vite: {
-    build: {
-      rollupOptions: {
-        // 修复 rolldown 无法正确解析 vue-router 裸模块的问题
-        external: ['vue-router'],
-        output: {
-          globals: {
-            'vue-router': 'VueRouter',
-          },
-        },
-      },
-    },
-  },
   themeConfig: {
     logo: '/favicon.svg',
     nav: [

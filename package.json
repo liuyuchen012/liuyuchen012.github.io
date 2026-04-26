@@ -4,12 +4,12 @@
     "type": "module",
     "scripts": {
         "dev": "valaxy",
-        "build": "valaxy build",
+        "build": "valaxy build && node postbuild.mjs",
         "preview": "valaxy preview"
     },
     "dependencies": {
-        "valaxy": "^0.28.5",
-        "valaxy-theme-press": "^0.28.5"
+        "valaxy": "^0.27.0",
+        "valaxy-theme-press": "^0.27.0"
     },
     "packageManager": "pnpm@9.15.4"
 }
