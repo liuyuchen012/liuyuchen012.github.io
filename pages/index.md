@@ -1,48 +1,36 @@
 ---
-layout: page
-title: 数学打卡项目
+layout: home
+
+hero:
+  name: 数学打卡
+  text: Wiki 知识库
+  tagline: 一个专注于数学学习与打卡记录的项目，每天进步一点点，坚持带来大改变。
+  actions:
+    - theme: brand
+      text: 快速开始
+      link: /guide/
+    - theme: alt
+      text: 浏览题目
+      link: /problems/
+    - theme: alt
+      text: 查看解法
+      link: /solutions/
+
+features:
+  - icon: 📖
+    title: 使用指南
+    details: 了解项目结构、提交方式和协作流程。
+    link: /guide/
+  - icon: ✏️
+    title: 题目
+    details: 浏览所有数学打卡题目。
+    link: /problems/
+  - icon: 💡
+    title: 解法
+    details: 查看各种题目的解法和思路。
+    link: /solutions/
+  - icon: 📚
+    title: 资源
+    details: 推荐的工具、书籍和参考资料。
+    link: /resources/
 ---
-
-# 数学打卡项目 📐
-
-一个专注于数学学习与打卡记录的项目。
-
-## 快速导航
-
-<div class="grid grid-cols-2 gap-4 mt-8">
-
-<div class="card p-6 rounded-lg border-1 border-gray-200 hover:border-primary transition-colors">
-
-### 📖 [使用指南](/guide/)
-了解项目结构、提交方式和协作流程。
-
-</div>
-
-<div class="card p-6 rounded-lg border-1 border-gray-200 hover:border-primary transition-colors">
-
-### ✏️ [题目](/problems/)
-浏览所有数学打卡题目。
-
-</div>
-
-<div class="card p-6 rounded-lg border-1 border-gray-200 hover:border-primary transition-colors">
-
-### 💡 [解法](/solutions/)
-查看各种题目的解法和思路。
-
-</div>
-
-<div class="card p-6 rounded-lg border-1 border-gray-200 hover:border-primary transition-colors">
-
-### 📚 [资源](/resources/)
-推荐的工具、书籍和参考资料。
-
-</div>
-
-</div>
-
-## 项目简介
-
-数学打卡是一个旨在通过每日练习提升数学能力的项目。本项目记录了打卡过程中遇到的题目、解法以及相关资源。
-
-> 每天进步一点点，坚持带来大改变。
