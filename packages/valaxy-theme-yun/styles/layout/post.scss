@@ -1,0 +1,120 @@
+@use "valaxy/client/styles/mixins/index.scss" as *;
+
+.post-card {
+  position: relative;
+  max-width: var(--yun-post-card-max-width);
+}
+
+.post-card-image {
+  position: relative;
+  max-width: var(--yun-post-card-max-width);
+
+  .post-card-cover {
+    width: 40%;
+    height: 13.5rem; // h-54
+    flex-shrink: 0;
+  }
+
+  .post-card-body-with-cover {
+    height: 13.5rem; // h-54
+  }
+
+  // Use md breakpoint (768px) instead of mobile (640px)
+  // because 640~768px screens are still too narrow for side-by-side layout
+  @media screen and (width <= 768px) {
+    .post-card-info {
+      flex-direction: column;
+    }
+
+    .post-card-cover {
+      width: 100%;
+      height: auto;
+      max-height: 12rem;
+    }
+
+    .post-card-body-with-cover {
+      height: auto;
+    }
+  }
+}
+
+.post-title-link {
+  position: relative;
+  padding: 0.7rem 1.2rem;
+  color: var(--card-c-primary, var(--va-c-link));
+  font-weight: 900;
+
+  .icon {
+    width: 1.6rem;
+    height: 1.6rem;
+    margin-right: 0.4rem;
+  }
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    opacity: 0;
+    border: 2px solid;
+    transition: var(--va-transition-duration);
+    transition-timing-function: cubic-bezier(0.17, 0.67, 0.05, 1.29);
+  }
+
+  &::before {
+    top: 0;
+    left: 0;
+    border-width: 2px 0 0 2px;
+    transform: translate3d(10px, 10px, 0);
+  }
+
+  &::after {
+    right: 0;
+    bottom: 0;
+    border-width: 0 2px 2px 0;
+    transform: translate3d(-10px, -10px, 0);
+  }
+
+  &:hover::before,
+  &:hover::after {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.post-link-btn,
+.markdown-body .post-link-btn {
+  background-color: var(--va-c-primary, #111);
+  line-height: 1.2;
+  padding: 0.5rem 1.2rem;
+  color: white;
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  margin-top: -0.2rem;
+  transition: box-shadow var(--va-transition-duration), transform var(--va-transition-duration-fast);
+
+  &:hover {
+    transform: translateY(-1px);
+  }
+
+  &::before {
+    content: none;
+  }
+}
+
+// category
+.post-category {
+  color: var(--va-c-text);
+}
+
+.post-tag {
+  white-space: nowrap;
+  color: var(--yun-tag-color);
+  transition: color var(--va-transition-duration-fast);
+
+  &:hover {
+    color: var(--va-c-primary);
+  }
+}
