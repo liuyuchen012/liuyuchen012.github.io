@@ -1,17 +1,35 @@
-node_modules
-dist
-*.local
+# custom
+
+# add lock for ci
+# pnpm-lock.yaml
+package-lock.json
+yarn.lock
+
 .DS_Store
-.vite
+.vite-ssg-dist
+.vite-ssg-temp
+*.local
+dist
+dist-ssr
+node_modules
+.idea/
+*.log
 
-# valaxy fuse
-public/valaxy-fuse-list.json
+components.d.ts
 
-# valaxy rss
-public/feed.xml
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+.playwright-mcp
 
-# valaxy rss
-public/atom.xml
+# test
+valaxy-blog
 
-# valaxy rss
-public/feed.json
+# env (may contain secrets like VALAXY_ENCRYPT_PASSWORD)
+.env
+.env.*
+
+# codebuddy
+.codebuddy/memory
+.claude/worktrees

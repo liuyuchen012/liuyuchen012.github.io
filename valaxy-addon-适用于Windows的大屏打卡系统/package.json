@@ -1,0 +1,12 @@
+{
+  "name": "适用于Windows的大屏打卡系统",
+  "version": "0.0.1",
+  "description": "Template for Valaxy Addon.",
+  "repository": "https://github.com/liuyuchen012/liuyuchen012.github.io",
+  "keywords": [
+    "valaxy",
+    "addon",
+    "template"
+  ],
+  "main": "index.ts"
+}
