@@ -22,8 +22,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-        with:
-          version: latest
+        # version 由 package.json 的 packageManager 字段控制
+        # 当前: pnpm@9.15.4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
