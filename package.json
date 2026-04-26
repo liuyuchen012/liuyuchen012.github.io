@@ -1,15 +1,15 @@
 {
-    "name":  "math-wiki",
-    "private":  true,
-    "type":  "module",
-    "scripts":  {
-                    "dev":  "valaxy",
-                    "build":  "valaxy build",
-                    "preview":  "valaxy preview"
-                },
-    "dependencies":  {
-                         "valaxy":  "latest",
-                         "valaxy-theme-press":  "latest"
-                     },
-    "packageManager":  "pnpm@9.15.4"
+    "name": "math-wiki",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "dev": "valaxy",
+        "build": "valaxy build",
+        "preview": "valaxy preview"
+    },
+    "dependencies": {
+        "valaxy": "^0.28.5",
+        "valaxy-theme-press": "^0.28.5"
+    },
+    "packageManager": "pnpm@9.15.4"
 }
